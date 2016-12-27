@@ -1,0 +1,4 @@
+---
+- include: installs.yml
+- include: user-conf.yml
+- include: git-conf.yml

@@ -1,0 +1,12 @@
+---
+- name: Set git email
+  git_config:
+    name: user.email
+    value: jbmmhk@ksu.edu
+    scope: global
+
+- name: Set git name
+  git_config:
+    name: user.name
+    value: Josh Manning
+    scope: global

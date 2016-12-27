@@ -1,0 +1,6 @@
+---
+- name: Add user to docker group for non-sudo access
+  user:
+    name: "{{ lookup('env', 'USER') }}"
+    group: docker
+    append: true

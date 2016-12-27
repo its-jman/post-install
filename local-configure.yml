@@ -1,0 +1,7 @@
+- name: Configure system
+  hosts: localhost
+  tasks:
+
+    - name: Add gnome-terminal hot corner
+      debug:
+        msg: "gsettings set org.cinnamon overview-corner "['gnome-terminal:true:false:0', 'scale:false:false:0', 'scale:false:false:0', 'scale:false:false:0']""

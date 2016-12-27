@@ -1,0 +1,38 @@
+---
+keys: {
+  # Spotify
+  "hkp://keyserver.ubuntu.com:80": "BBEBDCB318AD50EC6865090613B00F1FD2C19886",
+  # Docker
+  "hkp://ha.pool.sks-keyservers.net:80": "58118E89F3A912897C070ADBF76221572C52609D"
+}
+
+download_path: "~/Downloads/"
+# Remote deb file to install once
+fetch_deb: {
+  atom.deb: "https://atom.io/download/deb"
+  chrome.deb: "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
+}
+
+# PPAs to add.
+repos:
+  - ppa:webupd8team/java
+  - ppa:ansible/ansible
+
+# Repositories to add to sources.list
+repos_deb: {
+  docker.list: "deb https://apt.dockerproject.org/repo ubuntu-xenial main"
+  spotify.list: "deb http://repository.spotify.com stable non-free"
+}
+
+# Packages to install via apt
+packages:
+  - python-gpgme
+  - python-dev
+  - virtualenv
+  - build-essential
+  - libssl-dev
+  - openssl
+  - tk8.6-dev
+  - oracle-java8-installer
+  - docker-engine
+  - spotify-client
