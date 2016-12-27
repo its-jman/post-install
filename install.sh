@@ -13,5 +13,6 @@ ansible-playbook local-configure.yml
 
 deactivate
 rm -rf /tmp/installation-venv/
-echo "DONE WITH INSTALLATION"
-# rm -rf ../post-install/
+rm -rf ../post-install/
+echo "\nDone with configuration, removed post-install. "
+cd ../
