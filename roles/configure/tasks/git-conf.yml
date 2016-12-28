@@ -10,3 +10,9 @@
     name: user.name
     value: "{{ _name }}"
     scope: global
+
+- name: Use new push/branch behavior
+  git_config:
+    name: push.default
+    value: simple
+    scope: global
