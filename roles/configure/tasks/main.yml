@@ -6,3 +6,4 @@
 - include: user-conf.yml
 - include: git-conf.yml
 - include: ansible-conf.yml
+- include: atom-conf.yml
