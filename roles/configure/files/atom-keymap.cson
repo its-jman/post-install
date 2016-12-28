@@ -1,0 +1,3 @@
+'.editor':
+  'shift-enter': 'editor:newline-below'
+  'ctrl-t': 'command-palette:toggle'

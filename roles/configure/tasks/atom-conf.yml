@@ -1,0 +1,5 @@
+---
+- name: Add atom keymap
+  copy:
+    src: atom-keymap.cson
+    dest: "~/.atom/keymap.cson"
