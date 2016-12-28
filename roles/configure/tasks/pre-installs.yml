@@ -1,0 +1,28 @@
+---
+- name: Add PPAs
+  become: true
+  apt_repository:
+    repo: "{{ item }}"
+  with_items: "{{ repos }}"
+
+- name: Add Key Servers
+  apt_key:
+    keyserver: "{{ item.key }}"
+    id: "{{ item.value }}"
+  with_dict: "{{ keys }}"
+
+- name: Add repositories (deb)
+  become: true
+  lineinfile:
+    dest: "/etc/apt/sources.list.d/{{ item.key }}"
+    line: "{{ item.value }}"
+  with_dict: "{{ repos_deb }}"
+
+- name: Update
+  become: true
+  command: "apt update"
+
+- name: Upgrade
+  become: true
+  apt:
+    upgrade: safe # Do not use full. We want the "safe" upgrade.

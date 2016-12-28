@@ -1,4 +1,8 @@
 ---
+- include: set-environment.yml
+- include: pre-installs.yml
 - include: installs.yml
+- include: python-install.yml
 - include: user-conf.yml
 - include: git-conf.yml
+- include: ansible-conf.yml

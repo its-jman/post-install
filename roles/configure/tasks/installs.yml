@@ -2,30 +2,7 @@
 - name: Install remote deb packages
   apt:
     deb: "{{ item.value }}"
-  with_dict: "{{ fetch_deb }}"
-
-- name: Add repositories
-  become: true
-  apt_repository:
-    repo: "{{ item }}"
-  with_items: "{{ repos }}"
-
-- name: Add repositories (deb)
-  become: true
-  lineinfile:
-    dest: "/etc/apt/sources.list.d/{{ item.key }}"
-    line: "{{ item.value }}"
-  with_dict: "{{ repos_deb }}"
-
-- name: Update
-  become: true
-  apt:
-    update_cache: yes
-
-- name: Upgrade
-  become: true
-  apt:
-    upgrade: safe # Do not use full. We want the "safe" upgrade.
+  with_dict: "{{ fetch_install_deb }}"
 
 - name: Install packages
   become: true

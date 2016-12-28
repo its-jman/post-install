@@ -1,4 +1,18 @@
 ---
+download_path: "~/Downloads/"
+ansible_path: "/etc/ansible/"
+
+env: {
+  ANSIBLE_NOCOWS: 1,
+  EDITOR: vim
+}
+
+config: {
+  "/etc/ansible/ansible.cfg": [
+    "retry_files_enabled = False"
+  ]
+}
+
 keys: {
   # Spotify
   "hkp://keyserver.ubuntu.com:80": "BBEBDCB318AD50EC6865090613B00F1FD2C19886",
@@ -6,11 +20,10 @@ keys: {
   "hkp://ha.pool.sks-keyservers.net:80": "58118E89F3A912897C070ADBF76221572C52609D"
 }
 
-download_path: "~/Downloads/"
-# Remote deb file to install once
-fetch_deb: {
-  atom.deb: "https://atom.io/download/deb"
-  chrome.deb: "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
+# Repositories to add to sources.list
+repos_deb: {
+  "docker.list": "deb https://apt.dockerproject.org/repo ubuntu-xenial main",
+  "spotify.list": "deb http://repository.spotify.com stable non-free"
 }
 
 # PPAs to add.
@@ -18,16 +31,20 @@ repos:
   - ppa:webupd8team/java
   - ppa:ansible/ansible
 
-# Repositories to add to sources.list
-repos_deb: {
-  docker.list: "deb https://apt.dockerproject.org/repo ubuntu-xenial main"
-  spotify.list: "deb http://repository.spotify.com stable non-free"
-}
+# Remote deb file to install once
+fetch_install_deb:
+  # Atom
+  - "https://atom.io/download/deb"
+  # Chrome
+  - "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
 
 # Packages to install via apt
 packages:
-  - python-gpgme
+  - python-gpgme # Dropbox requirement
+  - python-pip
+  - python3-pip
   - python-dev
+  - python3-dev
   - virtualenv
   - build-essential
   - libssl-dev
@@ -36,3 +53,4 @@ packages:
   - oracle-java8-installer
   - docker-engine
   - spotify-client
+  - vim

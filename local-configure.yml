@@ -1,7 +1,11 @@
 - name: Configure system
   hosts: localhost
-  tasks:
-
-    - name: Add gnome-terminal hot corner
-      debug:
-        msg: t
+  environment:
+    "{{ env }}"
+  pre_tasks:
+    - name: Check sudo permission
+      become: true
+      command: "echo You have sudo permission!"
+      register: hi
+  roles:
+    - configure

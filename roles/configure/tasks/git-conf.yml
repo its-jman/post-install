@@ -2,11 +2,11 @@
 - name: Set git email
   git_config:
     name: user.email
-    value: jbmmhk@ksu.edu
+    value: "{{ _email }}"
     scope: global
 
 - name: Set git name
   git_config:
     name: user.name
-    value: Josh Manning
+    value: "{{ _name }}"
     scope: global
