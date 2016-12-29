@@ -8,35 +8,42 @@
     versions: "{{ versions }}"
   register: versions
 
-- name: Extract TARs
-  unarchive:
-    src: "https://www.python.org/ftp/python/{{ item }}/Python-{{ item }}.tar.xz"
+- name: Download Python files
+  get_url:
+    url: "https://www.python.org/ftp/python/{{ item }}/Python-{{ item }}.tar.xz"
     dest: "{{ download_path }}"
-    remote_src: true
   with_items: "{{ versions.val }}"
   register: pythons
 
-- name: Install Python versions (./configure)
-  command: "./configure --prefix=/opt/python{{ item.item }}"
-  args:
-    chdir: "{{ item.dest }}Python-{{ item.item }}/"
+- name: Extract TARs
+  unarchive:
+    src: "{{ item.dest }}"
+    dest: "{{ download_path }}"
   with_items: "{{ pythons.results }}"
+  register: pythons
 
-- name: Install Python versions (make)
-  command: "make"
-  args:
-    chdir: "{{ item.dest }}Python-{{ item.item }}/"
-  with_items: "{{ pythons.results }}"
-
-- name: Install Python versions (make install)
-  become: true
-  command: "make install"
-  args:
-    chdir: "{{ item.dest }}Python-{{ item.item }}/"
-  with_items: "{{ pythons.results }}"
+# - name: Install Python versions (./configure)
+#   command: "./configure --prefix=/opt/python{{ item.item.item }}"
+#   args:
+#     chdir: "{{ item.dest }}Python-{{ item.item.item }}/"
+#   with_items: "{{ pythons.results }}"
+#
+# - name: Install Python versions (make)
+#   command: "make"
+#   args:
+#     chdir: "{{ item.dest }}Python-{{ item.item.item }}/"
+#   with_items: "{{ pythons.results }}"
+#
+# - name: Install Python versions (make install)
+#   become: true
+#   command: "make install"
+#   args:
+#     chdir: "{{ item.dest }}Python-{{ item.item.item }}/"
+#   with_items: "{{ pythons.results }}"
 
 - name: Remove TARs
+  become: true
   file:
-    path: "{{ item.dest }}Python-{{ item.item }}"
+    path: "{{ item.dest }}Python-{{ item.item.item }}"
     state: absent
   with_items: "{{ pythons.results }}"

@@ -1,26 +1,34 @@
 ---
 - name: Add PPAs
   become: true
-  apt_repository:
-    repo: "{{ item }}"
+  command: "apt-add-repository {{ item }} -y"
   with_items: "{{ repos }}"
 
 - name: Add Key Servers
+  become: true
   apt_key:
     keyserver: "{{ item.key }}"
     id: "{{ item.value }}"
   with_dict: "{{ keys }}"
 
+- name: Download deb files
+  get_url:
+    url: "{{ item.value }}"
+    dest: "{{ download_path }}{{ item.key }}"
+  with_dict: "{{ fetch_deb }}"
+  register: remote_debs
+
 - name: Add repositories (deb)
   become: true
   lineinfile:
-    dest: "/etc/apt/sources.list.d/{{ item.key }}"
+    dest: "/etc/apt/sources.list" # .d/{{ item.key }}"
     line: "{{ item.value }}"
   with_dict: "{{ repos_deb }}"
 
 - name: Update
   become: true
-  command: "apt update"
+  apt:
+    update_cache: true
 
 - name: Upgrade
   become: true

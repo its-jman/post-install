@@ -1,8 +1,11 @@
 ---
-- name: Install remote deb packages
+- debug:
+    msg: "{{ remote_debs }}"
+- name: Install deb packages
+  become: true
   apt:
-    deb: "{{ item.value }}"
-  with_dict: "{{ fetch_install_deb }}"
+    deb: "{{ item.dest }}"
+  with_items: "{{ remote_debs.results }}"
 
 - name: Install packages
   become: true

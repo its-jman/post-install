@@ -7,12 +7,6 @@ env: {
   EDITOR: vim
 }
 
-config: {
-  "/etc/ansible/ansible.cfg": [
-    "retry_files_enabled = False"
-  ]
-}
-
 keys: {
   # Spotify
   "hkp://keyserver.ubuntu.com:80": "BBEBDCB318AD50EC6865090613B00F1FD2C19886",
@@ -28,15 +22,14 @@ repos_deb: {
 
 # PPAs to add.
 repos:
-  - ppa:webupd8team/java
-  - ppa:ansible/ansible
+  - "ppa:webupd8team/java"
+  - "ppa:xorg-edgers/ppa"
 
 # Remote deb file to install once
-fetch_install_deb:
-  # Atom
-  - "https://atom.io/download/deb"
-  # Chrome
-  - "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
+fetch_deb: {
+  "atom.deb": "https://atom.io/download/deb",
+  "chrome.deb": "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
+}
 
 # Packages to install via apt
 packages:
@@ -50,7 +43,6 @@ packages:
   - libssl-dev
   - openssl
   - tk8.6-dev
-  - oracle-java8-installer
   - docker-engine
   - spotify-client
   - vim
