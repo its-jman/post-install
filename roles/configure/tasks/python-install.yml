@@ -22,24 +22,24 @@
   with_items: "{{ pythons.results }}"
   register: pythons
 
-# - name: Install Python versions (./configure)
-#   command: "./configure --prefix=/opt/python{{ item.item.item }}"
-#   args:
-#     chdir: "{{ item.dest }}Python-{{ item.item.item }}/"
-#   with_items: "{{ pythons.results }}"
-#
-# - name: Install Python versions (make)
-#   command: "make"
-#   args:
-#     chdir: "{{ item.dest }}Python-{{ item.item.item }}/"
-#   with_items: "{{ pythons.results }}"
-#
-# - name: Install Python versions (make install)
-#   become: true
-#   command: "make install"
-#   args:
-#     chdir: "{{ item.dest }}Python-{{ item.item.item }}/"
-#   with_items: "{{ pythons.results }}"
+- name: Install Python versions (./configure)
+  command: "./configure --prefix=/opt/python{{ item.item.item }}"
+  args:
+    chdir: "{{ item.dest }}Python-{{ item.item.item }}/"
+  with_items: "{{ pythons.results }}"
+
+- name: Install Python versions (make)
+  command: "make"
+  args:
+    chdir: "{{ item.dest }}Python-{{ item.item.item }}/"
+  with_items: "{{ pythons.results }}"
+
+- name: Install Python versions (make install)
+  become: true
+  command: "make install"
+  args:
+    chdir: "{{ item.dest }}Python-{{ item.item.item }}/"
+  with_items: "{{ pythons.results }}"
 
 - name: Remove TARs
   become: true
