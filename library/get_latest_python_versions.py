@@ -34,17 +34,13 @@ class Version:
 
     def my_cmp(self, other):
         max_range = max(self.len, other.len)
-        print(self, other)
         for v in range(max_range):
             if self[v] == other[v]:
                 continue
             elif self[v] < other[v]:
-                print('eq: -1')
                 return -1
             elif self[v] > other[v]:
-                print('eq: 1')
                 return 1
-        print('eq: 0')
         return 0
 
     def __str__(self):
@@ -85,36 +81,20 @@ def main():
     versions = ans_module.params['versions']
     remote_versions = _get_remote_versions()
 
-    print('REMOTE', remote_versions)
-
     matching_versions = map(
         lambda x: _get_matching_major_versions(x, remote_versions),
         versions
     )
     matching_versions = list(matching_versions)
-    print('MATCHING: ', matching_versions)
     recent_versions = map(lambda x: str(x[-1]), matching_versions)
     recent_versions = list(recent_versions)
 
     ans_module.exit_json(
         changed=True, # Always true. Future, detect currently installed version, and allow for updating.
-        val=list(recent_versions),
+        val=recent_versions,
         log=log,
         initial=versions
     )
 
 if __name__ == '__main__':
     main()
-    # versions = [2, 3]
-    # remote_versions = _get_remote_versions()
-    #
-    # print('REMOTE', remote_versions)
-    #
-    # matching_versions = map(
-    #     lambda x: _get_matching_major_versions(x, remote_versions),
-    #     versions
-    # )
-    # matching_versions = list(matching_versions)
-    # print('MATCHING: ', matching_versions)
-    # recent_versions = map(lambda x: str(x[-1]), matching_versions)
-    # recent_versions = list(recent_versions)
