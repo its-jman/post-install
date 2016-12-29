@@ -4,7 +4,7 @@ if [ "$EUID" -ne 0 ]
   exit
 fi
 
-apt install python-pip python-dev
+apt install -y python-pip python-dev
 pip install setuptools
 pip install wheel
 pip install git+git://github.com/ansible/ansible.git@devel
