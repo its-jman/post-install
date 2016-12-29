@@ -19,7 +19,6 @@ class Version:
             return 0
 
     def __lt__(self, other):
-        print()
         return self.my_cmp(other) < 0
     def __gt__(self, other):
         return self.my_cmp(other) > 0
