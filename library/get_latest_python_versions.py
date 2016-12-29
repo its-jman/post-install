@@ -19,19 +19,19 @@ class Version:
             return 0
 
     def __lt__(self, other):
-        return self.my_cmp(other) < 0
+        return self.__cmp__(other) < 0
     def __gt__(self, other):
-        return self.my_cmp(other) > 0
+        return self.__cmp__(other) > 0
     def __eq__(self, other):
-        return self.my_cmp(other) == 0
+        return self.__cmp__(other) == 0
     def __le__(self, other):
-        return self.my_cmp(other) <= 0
+        return self.__cmp__(other) <= 0
     def __ge__(self, other):
-        return self.my_cmp(other) >= 0
+        return self.__cmp__(other) >= 0
     def __ne__(self, other):
-        return self.my_cmp(other) != 0
+        return self.__cmp__(other) != 0
 
-    def my_cmp(self, other):
+    def __cmp__(self, other):
         max_range = max(self.len, other.len)
         for v in range(max_range):
             if self[v] == other[v]:
