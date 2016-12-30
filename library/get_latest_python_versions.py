@@ -84,7 +84,7 @@ def main():
         lambda x: _get_matching_major_versions(x, remote_versions),
         versions
     )
-    matching_versions = list(matching_versions)
+    matching_versions = map(lambda x: sorted(x), matching_versions)
     recent_versions = map(lambda x: str(x[-1]), matching_versions)
     recent_versions = list(recent_versions)
 
