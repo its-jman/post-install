@@ -13,6 +13,6 @@ export ANSIBLE_NOCOWS=1
 
 ansible-playbook local-configure.yml
 
-deactivate
+chown josh:josh .ansible/ -R
 rm -rf ../post-install/
 echo "Done with configuration, removed post-install. "
