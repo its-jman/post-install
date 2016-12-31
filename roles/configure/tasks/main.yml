@@ -1,5 +1,5 @@
 ---
-- include: set-environment.yml
+- include: set-bashrc.yml
 - include: pre-installs.yml
 - include: installs.yml
 - include: python-install.yml
