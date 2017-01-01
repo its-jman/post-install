@@ -16,3 +16,14 @@
     name: push.default
     value: simple
     scope: global
+
+- name: Create the .gitignore_global file
+  copy:
+    src: .gitignore_global
+    dest: "~/.gitignore_global"
+
+- name: Add the global git ignore
+  git_config:
+    name: core.excludesfile
+    value: "~/.gitignore_global"
+    scope: global
