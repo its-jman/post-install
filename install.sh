@@ -13,6 +13,6 @@ export ANSIBLE_NOCOWS=1
 
 ansible-playbook local-configure.yml
 
-chown josh:josh .ansible/ -R
+chown "$SUDO_USER":"$SUDO_USER" .ansible/ -R
 rm -rf ../post-install/
 echo "Done with configuration, removed post-install. "
