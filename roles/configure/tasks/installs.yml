@@ -1,6 +1,4 @@
 ---
-- debug:
-    msg: "{{ remote_debs }}"
 - name: Install deb packages
   become: true
   apt:
@@ -14,3 +12,8 @@
     state: latest
     force: yes
   with_items: "{{ packages }}"
+
+- name: Custom installs (eg. curl sh | bash)
+  become: true
+  command: "{{ item }}"
+  with_items: curl_sh
