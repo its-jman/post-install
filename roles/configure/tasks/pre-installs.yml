@@ -33,4 +33,4 @@
 - name: Upgrade
   become: true
   apt:
-    upgrade: safe # Do not use full. We want the "safe" upgrade.
+    upgrade: full # Do not use full. We want the "safe" upgrade.
