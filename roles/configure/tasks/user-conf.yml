@@ -10,4 +10,5 @@
   become: true
   become_user: "{{ lookup('env', 'SUDO_USER') }}"
   command: "gsettings set {{ item.name }} {{ item.value }}"
+  ignore_errors: yes
   with_items: "{{ gsettings }}"
