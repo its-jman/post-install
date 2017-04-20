@@ -4,6 +4,7 @@ if [ "$EUID" -ne 0 ]
   exit
 fi
 
+apt update
 apt install -y python-pip python-dev
 pip install setuptools
 pip install wheel
