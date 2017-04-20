@@ -5,7 +5,7 @@ if [ "$EUID" -ne 0 ]
 fi
 
 apt update
-apt upgrade
+apt upgrade -y
 apt install -y python-pip python-dev
 pip install setuptools
 pip install wheel
