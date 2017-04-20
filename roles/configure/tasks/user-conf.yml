@@ -1,10 +1,10 @@
 ---
 - name: Add user to docker group for non-sudo access
- become: true
- user:
-   name: "{{ lookup('env', 'USER') }}"
-   group: docker
-   append: true
+  become: true
+  user:
+    name: "{{ lookup('env', 'USER') }}"
+    group: docker
+    append: true
 
 - name: Set proper gsettings
   become: true
