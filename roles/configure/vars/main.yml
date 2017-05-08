@@ -29,7 +29,6 @@ repos_deb: {
 # PPAs to add.
 repos:
   - "ppa:webupd8team/java"
-  - "ppa:xorg-edgers/ppa"
 
 # Remote deb file to install once
 fetch_deb: {
