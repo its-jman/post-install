@@ -39,6 +39,7 @@ fetch_deb: {
 # Packages to install via apt
 packages:
   - python-gpgme # Dropbox requirement
+  - libsqlite3-dev # Python sqlite build requirement
   - python-pip
   - python3-pip
   - python-dev
