@@ -73,7 +73,7 @@ gsettings:
   - {
       "name": "org.cinnamon.settings-daemon.peripherals.touchscreen orientation-lock",
       "value": "true"
-    },
+    }
   - {
       "name": "org.cinnamon.muffin tile-maximize",
       "value": "true"
