@@ -9,7 +9,7 @@ apt upgrade -y
 apt install -y python-pip python-dev
 pip install setuptools
 pip install wheel
-pip install git+git://github.com/ansible/ansible.git@devel
+pip install git+git://github.com/ansible/ansible.git
 export ANSIBLE_NOCOWS=1
 
 ansible-playbook local-configure.yml
