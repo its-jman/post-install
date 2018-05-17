@@ -8,14 +8,10 @@ env: {
 }
 
 alias: {
-  status: "find . -maxdepth 1 -mindepth 1 -type d -exec sh -c '(echo {} && cd {} && git status -s && echo)' \\;",
   dc: "docker-compose"
 }
 
 keys: {
-  # Spotify
-
-
   # Docker
   "hkp://ha.pool.sks-keyservers.net:80": "58118E89F3A912897C070ADBF76221572C52609D",
   # RVM
@@ -24,8 +20,7 @@ keys: {
 
 # Repositories to add to sources.list
 repos_deb: {
-  "docker.list": "deb https://apt.dockerproject.org/repo ubuntu-xenial main",
-  "spotify.list": "deb http://repository.spotify.com stable non-free"
+  "docker.list": "deb https://apt.dockerproject.org/repo ubuntu-xenial main"
 }
 
 # PPAs to add.
@@ -41,11 +36,6 @@ fetch_deb: {
 # Packages to install via apt
 packages:
   - python-gpgme # Dropbox requirement
-  - libsqlite3-dev # Python sqlite build requirement
-  - python-pip
-  - python3-pip
-  - python-dev
-  - python3-dev
   - virtualenv
   - build-essential
   - libssl-dev
@@ -56,7 +46,7 @@ packages:
   - vim
 
 curl_sh:
-  - "curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash"
+  - "curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash"
   - "\\curl -sSL https://get.rvm.io | bash -s stable"
 
 gsettings:
@@ -67,10 +57,6 @@ gsettings:
   - {
       "name": "org.cinnamon.desktop.interface clock-show-date",
       "value": "true"
-    }
-  - {
-      "name": "org.cinnamon enabled-applets",
-      "value": "\"['panel1:left:0:menu@cinnamon.org:0', 'panel1:left:2:panel-launchers@cinnamon.org:2', 'panel1:left:4:window-list@cinnamon.org:3', 'panel1:right:0:notifications@cinnamon.org:4', 'panel1:right:1:user@cinnamon.org:5', 'panel1:right:2:removable-drives@cinnamon.org:6', 'panel1:right:3:keyboard@cinnamon.org:7', 'panel1:right:5:network@cinnamon.org:9', 'panel1:right:6:sound@cinnamon.org:10', 'panel1:right:7:power@cinnamon.org:11', 'panel1:right:8:systray@cinnamon.org:12', 'panel1:right:9:calendar@cinnamon.org:13', 'panel1:right:10:windows-quick-list@cinnamon.org:14']\""
     }
   - {
       "name": "org.cinnamon.settings-daemon.peripherals.touchscreen orientation-lock",
