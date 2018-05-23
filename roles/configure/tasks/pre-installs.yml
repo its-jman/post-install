@@ -1,9 +1,4 @@
 ---
-- name: Add PPAs
-  become: true
-  command: "apt-add-repository {{ item }} -y"
-  with_items: "{{ repos }}"
-
 - name: Add Key Servers
   become: true
   apt_key:
@@ -11,19 +6,29 @@
     id: "{{ item.value }}"
   with_dict: "{{ keys }}"
 
+- name: Add Key Servers (by URL)
+  become: true
+  apt_key:
+    url: "{{ item }}"
+  with_items: "{{ keys_url }}"
+
+- name: Add entries to sources.list
+  become: true
+  apt_repository: 
+    repo: "{{ item }}"
+  with_items: "{{ sources_list }}"
+
+- name: Create Download directory
+  file:
+    path: "{{ download_path }}"
+    state: directory
+
 - name: Download deb files
   get_url:
     url: "{{ item.value }}"
     dest: "{{ download_path }}{{ item.key }}"
-  with_dict: "{{ fetch_deb }}"
+  with_dict: "{{ single_use_debs }}"
   register: remote_debs
-
-- name: Add repositories (deb)
-  become: true
-  lineinfile:
-    dest: "/etc/apt/sources.list" # .d/{{ item.key }}"
-    line: "{{ item.value }}"
-  with_dict: "{{ repos_deb }}"
 
 - name: Update
   become: true

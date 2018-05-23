@@ -76,13 +76,13 @@ def file_exists(location):
     return (resp.status_code == 200)
 
 
-def _get_functional_url(versions):
+def get_recent_version(versions):
     for i in range(len(versions) - 1, 0, -1):
         v = versions[i]
 
         url = PY_URL.format(v, v)
         if file_exists(url):
-            return url
+            return v.version
     return ''
 
 
@@ -97,13 +97,14 @@ def main():
     versions = ans_module.params['versions']
     remote_versions = _get_remote_versions()
 
-    matching_versions = map(
-        lambda x: _get_matching_major_versions(x, remote_versions),
+    matching_major_unsorted = map(
+        lambda major: _get_matching_major_versions(major, remote_versions),
         versions
     )
-    matching_versions = map(lambda x: sorted(x), matching_versions)
+    # Sort lists
+    matching_major = map(lambda matched_list: sorted(matched_list), matching_major_unsorted)
 
-    install_urls = map(lambda x: _get_functional_url(x), matching_versions)
+    install_urls = map(lambda major_list: get_recent_version(major_list), matching_major)
 
 
     ans_module.exit_json(

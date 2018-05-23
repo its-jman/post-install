@@ -1,5 +1,5 @@
 ---
-download_path: "~/Downloads/"
+download_path: "{{ ansible_env.HOME }}/Downloads/"
 ansible_path: "/etc/ansible/"
 
 env: {
@@ -12,42 +12,38 @@ alias: {
 }
 
 keys: {
-  # Docker
-  "hkp://ha.pool.sks-keyservers.net:80": "58118E89F3A912897C070ADBF76221572C52609D",
   # RVM
   "hkp://keys.gnupg.net": "409B6B1796C275462A1703113804BB82D39DC0E3"
 }
 
-# Repositories to add to sources.list
-repos_deb: {
-  "docker.list": "deb https://apt.dockerproject.org/repo ubuntu-xenial main"
-}
+keys_url:
+  # Docker
+  - "https://download.docker.com/linux/ubuntu/gpg"
+  # VSCode
+  - "https://packages.microsoft.com/keys/microsoft.asc"
 
-# PPAs to add.
-repos:
-  - "ppa:webupd8team/java"
+# Repositories to add to sources.list
+sources_list:
+  # Docker
+  - "deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable"
+  # VSCode
+  - "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
 
 # Remote deb file to install once
-fetch_deb: {
-  "atom.deb": "https://atom.io/download/deb",
+single_use_debs: {
   "chrome.deb": "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
 }
 
 # Packages to install via apt
 packages:
-  - python-gpgme # Dropbox requirement
-  - virtualenv
   - build-essential
+  - python-gpgme # Dropbox requirement
   - libssl-dev
   - openssl
-  - tk8.6-dev
-  - docker-engine
-
+  - virtualenv
+  - docker-ce
+  - code
   - vim
-
-curl_sh:
-  - "curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash"
-  - "\\curl -sSL https://get.rvm.io | bash -s stable"
 
 gsettings:
   - {

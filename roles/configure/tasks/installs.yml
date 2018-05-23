@@ -13,7 +13,3 @@
     force: yes
   with_items: "{{ packages }}"
 
-- name: Custom installs (eg. curl sh | bash)
-  become: true
-  command: "{{ item }}"
-  with_items: "{{ curl_sh }}"

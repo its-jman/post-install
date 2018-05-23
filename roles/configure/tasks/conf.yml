@@ -1,0 +1,84 @@
+---
+# Bashrc
+- name: Set environment variables
+  lineinfile:
+    dest: "~/.bashrc"
+    line: "export {{ item.key }}={{ item.value }}"
+    create: yes
+  with_dict: "{{ env }}"
+
+- name: Set environment variables
+  lineinfile:
+    dest: "~/.bashrc"
+    line: "alias {{ item.key }}=\"{{ item.value }}\""
+    create: yes
+  with_dict: "{{ alias }}"
+
+# Git
+- name: Set git email
+  git_config:
+    name: user.email
+    value: "{{ _email }}"
+    scope: global
+
+- name: Set git name
+  git_config:
+    name: user.name
+    value: "{{ _name }}"
+    scope: global
+
+- name: Use new push/branch behavior
+  git_config:
+    name: push.default
+    value: simple
+    scope: global
+
+- name: Add the global git ignore
+  git_config:
+    name: core.excludesfile
+    value: "~/repos/.gitignore_global"
+    scope: global
+
+# Ansible
+- name: Create Ansible config directory
+  become: true
+  file:
+    path: "{{ ansible_path }}"
+    state: directory
+
+- name: Create Ansible config file
+  become: true
+  copy:
+    src: ansible-conf.ini
+    dest: "{{ ansible_path }}/ansible.cfg"
+
+# permissions
+- name: Add user to docker group for non-sudo access
+  become: true
+  user:
+    name: "{{ user }}"
+    group: docker
+    append: true
+
+- name: Give user permission to use Ansible
+  become: true
+  file:
+    path: "~/.ansible"
+    group: "{{ user }}"
+    owner: "{{ user }}"
+    recurse: yes
+
+- name: Give execute permission docker-compose
+  become: true
+  file:
+    path: "/usr/local/bin/docker-compose"
+    mode: "+x"
+
+# settings
+- name: Set proper gsettings
+  become: true
+  become_user: "{{ user }}"
+  command: "gsettings set {{ item.name }} {{ item.value }}"
+  ignore_errors: yes
+  with_items: "{{ gsettings }}"
+

@@ -1,0 +1,27 @@
+---
+- name: Register latest NVM version
+  get_latest_gh_release:
+    repo: creationix/nvm
+  register: latest_nvm
+
+- name: Download latest NVM
+  get_url: 
+    url: "https://raw.githubusercontent.com/creationix/nvm/{{ latest_nvm.val }}/install.sh"
+    dest: "{{ download_path }}nvm.sh"
+
+- name: Install latest NVM
+  shell: "sh {{ download_path }}nvm.sh"
+
+- name: Register latest Docker-Compose version
+  get_latest_gh_release:
+    repo: docker/compose
+  register: latest_dc
+
+- name: Install latest Docker-Compose
+  become: true
+  get_url: 
+    url: "https://github.com/docker/compose/releases/download/{{ latest_dc.val }}/docker-compose-Linux-x86_64"
+    dest: /usr/local/bin/docker-compose
+
+- name: Install RVM
+  shell: "curl -sSL https://get.rvm.io | bash -s stable"
